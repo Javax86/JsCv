@@ -1,0 +1,555 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --color-canvas: #F6F4EE;
+    --color-surface: #ECE8DE;
+    --color-surface-hover: #E4DFD3;
+    --color-surface-subtle: #F0EDE5;
+    --color-ink-primary: #1E1E1C;
+    --color-ink-secondary: #6E6A62;
+    --color-divider: rgba(45, 40, 35, 0.12);
+    --color-divider-subtle: rgba(45, 40, 35, 0.08);
+    --color-forest: #C6613F;
+    --color-rust: #B34B2E;
+    --color-rust-light: rgba(179, 75, 46, 0.1);
+    --color-copper: #D48C46;
+  }
+
+  .dark {
+    /* High-Contrast Editorial Obsidian Dark Theme:
+       - Canvas: Deep obsidian-charcoal (#121110)
+       - Surfaces: Distinct elevated slate-cardstock (#1C1A18)
+       - Primary Text: High-contrast parchment-white (#FAF8F5, 17.5:1 contrast)
+       - Secondary Text: Clean readable silver-taupe (#A8A296, 7.5:1 contrast)
+       - Structural Borders: Clean hairline separation (rgba(255, 255, 255, 0.12))
+       - Accents: Deep terracotta-rust (#B34B2E / #E0633C) and lighter rust (#C6613F / #EB7C59)
+    */
+    --color-canvas: #121110;
+    --color-surface: #1C1A18;
+    --color-surface-hover: #262420;
+    --color-surface-subtle: #171513;
+    --color-ink-primary: #FAF8F5;
+    --color-ink-secondary: #A8A296;
+    --color-divider: rgba(255, 255, 255, 0.12);
+    --color-divider-subtle: rgba(255, 255, 255, 0.08);
+    --color-forest: #EB7C59;
+    --color-rust: #E0633C;
+    --color-rust-light: rgba(224, 99, 60, 0.18);
+    --color-copper: #E59866;
+  }
+
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink-primary);
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 300ms ease, color 300ms ease;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Instrument Serif', Georgia, 'Times New Roman', 'Songti SC', 'Yu Mincho', 'Batang', 'Noto Serif', serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+/* Fluid global theme transition for surfaces, borders, and text */
+#cv-root,
+#cv-root header,
+#cv-root nav,
+#cv-root main,
+#cv-root section,
+#cv-root article,
+#cv-root footer,
+#cv-root div,
+#cv-root a,
+#cv-root button,
+#cv-root input,
+#cv-root textarea,
+#cv-root span,
+#cv-root p,
+#cv-root h1,
+#cv-root h2,
+#cv-root h3,
+#cv-root h4 {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Exclude Three.js canvas, preloader, and theme toggle icons from theme transition delays */
+#antigravity-background,
+#antigravity-background canvas,
+#grain-overlay,
+#editorial-preloader-root,
+#intro-underlay-grain,
+#intro-sheet-grain,
+#theme-toggle-button span,
+#theme-toggle-button svg {
+  transition: none !important;
+}
+
+/* ==========================================================================
+   Navbar Delicate Whisper Grain (Just a tiny bit of tactile grain)
+   ========================================================================== */
+#site-masthead {
+  position: relative;
+}
+
+#site-masthead::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--card-grain-url);
+  background-repeat: repeat;
+  background-size: 110px 110px;
+  opacity: 0.32;
+  z-index: 1;
+}
+
+#site-masthead > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Card Tactile Grain Enhancement (+15% more grain on all card surfaces)
+   ========================================================================== */
+.card-tactile,
+article[id^="project-card-"],
+div[id^="skill-group-"],
+#education-record,
+#linguistic-record,
+div[id^="cert-item-"],
+a[id^="profile-card-"],
+#editorial-display-banner,
+#statement .self-start,
+#contact .self-start {
+  position: relative;
+}
+
+.card-tactile,
+article[id^="project-card-"],
+div[id^="skill-group-"],
+#education-record,
+#linguistic-record,
+div[id^="cert-item-"],
+a[id^="profile-card-"],
+#editorial-display-banner {
+  position: relative;
+}
+
+.card-tactile::before,
+article[id^="project-card-"]::before,
+div[id^="skill-group-"]::before,
+#education-record::before,
+#linguistic-record::before,
+div[id^="cert-item-"]::before,
+a[id^="profile-card-"]::before,
+#editorial-display-banner::before,
+#statement .self-start::before,
+#contact .self-start::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--card-grain-url);
+  background-repeat: repeat;
+  background-size: 110px 110px;
+  opacity: 0.95;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.card-tactile > *,
+article[id^="project-card-"] > *,
+div[id^="skill-group-"] > *,
+#education-record > *,
+#linguistic-record > *,
+div[id^="cert-item-"] > *,
+a[id^="profile-card-"] > *,
+#editorial-display-banner > *,
+#statement .self-start > *,
+#contact .self-start > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark Mode Grain Opacity Restraint (reduce grain a little for ONLY dark mode) */
+.dark #site-masthead::before {
+  opacity: 0.16 !important;
+}
+
+.dark #intro-underlay-grain,
+.dark #intro-sheet-grain {
+  opacity: 0.42 !important;
+}
+
+.dark .card-tactile::before,
+.dark article[id^="project-card-"]::before,
+.dark div[id^="skill-group-"]::before,
+.dark #education-record::before,
+.dark #linguistic-record::before,
+.dark div[id^="cert-item-"]::before,
+.dark a[id^="profile-card-"]::before,
+.dark #editorial-display-banner::before,
+.dark #statement .self-start::before,
+.dark #contact .self-start::before {
+  opacity: 0.65 !important;
+}
+
+/* ==========================================================================
+   High-Contrast Editorial Obsidian Dark Theme Remappings
+   ========================================================================== */
+.dark #cv-root {
+  background-color: #121110 !important;
+  color: #FAF8F5 !important;
+}
+
+/* Canvas & Elevated Surface Backgrounds */
+.dark .bg-\[\#F6F4EE\] {
+  background-color: #121110 !important;
+}
+.dark .bg-\[\#F6F4EE\]\/95 {
+  background-color: rgba(18, 17, 16, 0.92) !important;
+  backdrop-filter: blur(12px) !important;
+}
+.dark .bg-\[\#ECE8DE\] {
+  background-color: #1C1A18 !important;
+}
+.dark .bg-\[\#ECE8DE\]\/30 {
+  background-color: #161513 !important;
+}
+.dark .bg-\[\#ECE8DE\]\/40 {
+  background-color: #181715 !important;
+}
+.dark .bg-\[\#ECE8DE\]\/50 {
+  background-color: #191816 !important;
+}
+.dark .bg-\[\#ECE8DE\]\/60 {
+  background-color: #1B1A17 !important;
+}
+.dark .bg-\[\#ECE8DE\]\/80 {
+  background-color: #211F1C !important;
+}
+.dark .hover\:bg-\[\#ECE8DE\]\/80:hover {
+  background-color: #25231F !important;
+}
+.dark .bg-\[\#E4DFD3\] {
+  background-color: #262420 !important;
+}
+.dark .hover\:bg-\[\#E4DFD3\]:hover {
+  background-color: #2C2925 !important;
+}
+.dark .hover\:bg-\[\#ECE8DE\]:hover {
+  background-color: #262420 !important;
+}
+
+/* Dark Accent Buttons & CTAs (e.g. #1E1E1C buttons) */
+.dark .bg-\[\#1E1E1C\] {
+  background-color: #2A2723 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #FAF8F5 !important;
+}
+.dark .hover\:bg-\[\#1E1E1C\]:hover {
+  background-color: #38342F !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Rust Accent Overrides */
+.dark .bg-\[\#B34B2E\] {
+  background-color: #E0633C !important;
+  color: #121110 !important;
+}
+.dark .hover\:bg-\[\#B34B2E\]:hover {
+  background-color: #EB744F !important;
+}
+
+/* High-Contrast Typography */
+.dark .text-\[\#1E1E1C\] {
+  color: #FAF8F5 !important;
+}
+.dark .group-hover\:text-\[\#1E1E1C\]:hover,
+.dark .group:hover .group-hover\:text-\[\#1E1E1C\] {
+  color: #FAF8F5 !important;
+}
+.dark .text-\[\#2D2A26\] {
+  color: #EAE5DC !important;
+}
+.dark .text-\[\#6E6A62\] {
+  color: #A8A296 !important;
+}
+.dark .group-hover\:text-\[\#6E6A62\]:hover,
+.dark .group:hover .group-hover\:text-\[\#6E6A62\] {
+  color: #C5BFB4 !important;
+}
+.dark .text-\[\#B34B2E\] {
+  color: #E0633C !important;
+}
+.dark .hover\:text-\[\#B34B2E\]:hover,
+.dark .group-hover\:text-\[\#B34B2E\]:hover,
+.dark .group:hover .group-hover\:text-\[\#B34B2E\] {
+  color: #EB744F !important;
+}
+
+/* Lighter Rust Secondary Accents (e.g. #C6613F / #3D4C41 legacy) */
+.dark .text-\[\#C6613F\],
+.dark .text-\[\#3D4C41\] {
+  color: #EB7C59 !important;
+}
+.dark .bg-\[\#C6613F\],
+.dark .bg-\[\#3D4C41\] {
+  background-color: #EB7C59 !important;
+  color: #121110 !important;
+}
+
+/* Hairline Background Dividers & Progress Rules in Dark Mode */
+.dark .bg-\[rgba\(45\,40\,35\,0\.12\)\] {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+.dark .bg-\[rgba\(45\,40\,35\,0\.06\)\] {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+.dark .bg-\[rgba\(45\,40\,35\,0\.08\)\] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .bg-\[rgba\(45\,40\,35\,0\.1\)\] {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+}
+.dark .bg-\[rgba\(45\,40\,35\,0\.18\)\] {
+  background-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Crisp Structural Borders & Dividers */
+.dark .border-\[rgba\(45\,40\,35\,0\.12\)\] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.14\)\] {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.16\)\] {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.18\)\] {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.1\)\] {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.08\)\] {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.06\)\] {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.2\)\] {
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.22\)\] {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+.dark .border-\[rgba\(45\,40\,35\,0\.25\)\] {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Crisp Dark Mode Dividers */
+.dark .divide-\[rgba\(45\,40\,35\,0\.06\)\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .divide-\[rgba\(45\,40\,35\,0\.08\)\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(255, 255, 255, 0.09) !important;
+}
+.dark .divide-\[rgba\(45\,40\,35\,0\.1\)\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* All Project Cards, Tactile Panels, Skills Groups, Credentials & Articles in Dark Mode (Solid, Non-Transparent Surface) */
+.dark article[id^="project-card-"],
+.dark .card-tactile,
+.dark div[id^="skill-group-"],
+.dark #education-record,
+.dark #linguistic-record,
+.dark div[id^="cert-item-"],
+.dark a[id^="profile-card-"],
+.dark #editorial-display-banner,
+.dark #field-spec-ledger,
+.dark #project-filter-bar,
+.dark #transmission-terminal,
+.dark #contact .self-start,
+.dark #statement .self-start {
+  background-color: #181715 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark article[id^="project-card-"]:hover,
+.dark .card-tactile:hover,
+.dark div[id^="skill-group-"]:hover,
+.dark div[id^="cert-item-"]:hover,
+.dark a[id^="profile-card-"]:hover {
+  background-color: #201E1A !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+/* Highlights sub-deliverables inside project cards */
+.dark article[id^="project-card-"] .bg-\[\#F6F4EE\] {
+  background-color: #131210 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #EAE5DC !important;
+}
+
+/* Core Stack Tags inside project cards */
+.dark article[id^="project-card-"] span.bg-\[\#ECE8DE\] {
+  background-color: #24221F !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #FAF8F5 !important;
+}
+
+/* Certificate Items in Dark Mode (Selected: cert-item-0 through cert-item-4) */
+.dark div[id^="cert-item-"] {
+  background-color: #181715 !important;
+  border-color: rgba(255, 255, 255, 0.10) !important;
+}
+.dark div[id^="cert-item-"]:hover {
+  background-color: #211F1C !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+.dark div[id^="cert-item-"] span.bg-\[\#C6613F\]\/10,
+.dark div[id^="cert-item-"] span.bg-\[\#3D4C41\]\/10 {
+  background-color: rgba(235, 124, 89, 0.16) !important;
+  border: 1px solid rgba(235, 124, 89, 0.28) !important;
+  color: #EB7C59 !important;
+}
+
+/* Skills Keyword Pills */
+.dark div[id^="skill-group-"] button.bg-\[\#F6F4EE\] {
+  background-color: #1A1816 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #FAF8F5 !important;
+}
+.dark div[id^="skill-group-"] button.bg-\[\#F6F4EE\]:hover {
+  background-color: #272420 !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Footer Colophon in Dark Mode (Selected: footer#colophon) */
+.dark #colophon {
+  background-color: #151412 !important;
+  border-top-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+/* Contact & Colophon Utility Icons, Inputs and Buttons */
+.dark #contact .bg-\[\#F6F4EE\],
+.dark #colophon .bg-\[\#F6F4EE\] {
+  background-color: #161513 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #FAF8F5 !important;
+}
+.dark #contact input.bg-\[\#F6F4EE\],
+.dark #contact textarea.bg-\[\#F6F4EE\] {
+  background-color: #141311 !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  color: #FAF8F5 !important;
+}
+.dark #contact button.bg-\[\#F6F4EE\]:hover,
+.dark #colophon button.bg-\[\#F6F4EE\]:hover {
+  background-color: #272420 !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Badges & Tags */
+.dark .bg-\[\#C6613F\]\/10,
+.dark .bg-\[\#3D4C41\]\/10 {
+  background-color: rgba(235, 124, 89, 0.16) !important;
+}
+
+/* Preloader Tension SVG Fill in dark mode */
+.dark .fill-\[\#ECE8DE\] {
+  fill: #1C1A18 !important;
+}
+.dark .fill-\[\#F6F4EE\] {
+  fill: #121110 !important;
+}
+
+.dark .border-\[\#B34B2E\] {
+  border-color: #E0633C !important;
+}
+.dark .hover\:border-\[\#B34B2E\]:hover,
+.dark .group-hover\:border-\[\#B34B2E\]:hover,
+.dark .group:hover .group-hover\:border-\[\#B34B2E\] {
+  border-color: #EB744F !important;
+}
+
+/* Input Fields & Textareas */
+.dark input,
+.dark textarea {
+  background-color: #171513 !important;
+  color: #FAF8F5 !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+.dark input:focus,
+.dark textarea:focus {
+  border-color: #E0633C !important;
+  outline: none;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #7D786E !important;
+}
+
+/* Scroll progress track and bar */
+.dark #scroll-progress-track {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark #scroll-progress-bar {
+  background-color: #E0633C !important;
+}
+
+/* Dark Selection */
+.dark ::selection {
+  background-color: #E0633C !important;
+  color: #121110 !important;
+}
+
+/* Print Optimization for Editorial Archival Output */
+@media print {
+  .grain-overlay,
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 11pt !important;
+  }
+
+  .print-clean {
+    border-color: #cccccc !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+  .page-break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+
